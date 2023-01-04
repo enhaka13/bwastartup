@@ -5,14 +5,14 @@ import (
 )
 
 type User struct {
-	ID             int
-	Name           string
-	Occupation     string
-	Email          string
-	PasswordHash   string
-	AvatarFileName string
-	Role           string
-	token          string
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
+	ID             int       `json:"id"`
+	Name           string    `json:"name"`
+	Occupation     string    `json:"occupation"`
+	Email          string    `json:"email"`
+	PasswordHash   string    `json:"password_hash"`
+	AvatarFileName string    `json:"avatar_file_name"`
+	Role           string    `json:"role"`
+	token          string    `json:"token"`
+	CreatedAt      time.Time `json:"created_at"`
+	UpdatedAt      time.Time `json:"updated_at"`
 }
