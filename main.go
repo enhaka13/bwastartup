@@ -18,7 +18,7 @@ import (
 )
 
 func main() {
-	dsn := "root:Resveratrol1@tcp(127.0.0.1:3306)/bwastartup?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "sql12591310:BzCZS7JHCV@tcp(sql12.freemysqlhosting.net:3306)/sql12591310?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())
