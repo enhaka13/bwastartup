@@ -2,9 +2,11 @@ package main
 
 import (
 	"bwastartup/auth"
+	"bwastartup/campaign"
 	"bwastartup/handler"
 	"bwastartup/helper"
 	"bwastartup/user"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -23,9 +25,13 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
+
 
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+	campaignService := campaign.NewService(campaignRepository)
+	fmt.Println(campaignService)
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
