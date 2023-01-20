@@ -28,7 +28,7 @@ func FormatCampaign(campaign Campaign) CampaignFormatter {
 }
 
 func FormatCampaigns(campaigns []Campaign) []CampaignFormatter {
-	var campaignsFormatter []CampaignFormatter
+	campaignsFormatter := []CampaignFormatter{}
 
 	for _, campaign := range campaigns {
 		campaignFormatter := FormatCampaign(campaign)
@@ -37,4 +37,3 @@ func FormatCampaigns(campaigns []Campaign) []CampaignFormatter {
 
 	return campaignsFormatter
 }
-
