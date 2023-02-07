@@ -75,7 +75,7 @@ func (r *repository) CreateImage(campaignImage CampaignImage) (CampaignImage, er
 }
 
 func (r *repository) MarkAllImagesAsNonPrimary(campaignID int) (bool, error) {
-	if err := r.db.Model(&CampaignImage{}).Where("campaign_id = ?", campaignID).Update("is_primary = ?", false).Error; err != nil {
+	if err := r.db.Model(&CampaignImage{}).Where("campaign_id = ?", campaignID).Update("is_primary", false).Error; err != nil {
 		return false, err
 	}
 

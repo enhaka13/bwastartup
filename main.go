@@ -18,7 +18,7 @@ import (
 )
 
 func main() {
-	dsn := "sql12591310:BzCZS7JHCV@tcp(sql12.freemysqlhosting.net:3306)/sql12591310?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "freedb_enhaka13:$7X5TXeT5qQ5J#z@tcp(sql.freedb.tech:3306)/freedb_bwastartup?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())
@@ -49,6 +49,7 @@ func main() {
 	api.GET("/campaigns/:id", campaignHandler.GetCampaign)
 	api.POST("/campaigns", authMiddleware(authService, userService), campaignHandler.CreateCampaign)
 	api.PUT("/campaigns/:id", authMiddleware(authService, userService), campaignHandler.UpdateCampaign)
+	api.POST("/campaign-images", authMiddleware(authService, userService), campaignHandler.UploadImage)
 
 	router.Run()
 }
