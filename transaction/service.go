@@ -1,5 +1,10 @@
 package transaction
 
+import (
+	"bwastartup/campaign"
+	"errors"
+)
+
 
 type Service interface {
 	GetTransactionsByCampaignID(input GetCampaignTransactionsInput) ([]Transaction, error)
@@ -7,14 +12,24 @@ type Service interface {
 
 type service struct {
 	repository Repository
+	campaignRepository campaign.Repository
 }
 
-func NewService(repository Repository) *service {
-	return &service{repository}
+func NewService(repository Repository, campaignRepository campaign.Repository) *service {
+	return &service{repository, campaignRepository}
 }
 
 func (s *service) GetTransactionsByCampaignID(input GetCampaignTransactionsInput) ([]Transaction, error) {
-	 transactions, err := s.repository.GetByCampaignID(input.ID)
+	campaign, err := s.campaignRepository.FindByID(input.ID)
+	if err != nil {
+		return []Transaction{}, err
+	} 
+
+	if campaign.UserID != input.User.ID {
+		return []Transaction{}, errors.New("Not authorized as campaign's owner")
+	}
+	
+	transactions, err := s.repository.GetByCampaignID(input.ID)
 	 if err != nil {
 		return []Transaction{}, err
 	 }
