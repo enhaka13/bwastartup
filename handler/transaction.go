@@ -18,7 +18,7 @@ func NewTransactionHandler(service transaction.Service) *transactionHandler {
 	return &transactionHandler{service}
 }
 
-func (h *transactionHandler) GetCampaignTransactions (c *gin.Context) {
+func (h *transactionHandler) GetCampaignTransactions(c *gin.Context) {
 	var input transaction.GetCampaignTransactionsInput
 
 	err := c.ShouldBindUri(&input)
@@ -43,7 +43,7 @@ func (h *transactionHandler) GetCampaignTransactions (c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *transactionHandler) GetUserTransactions (c *gin.Context) {
+func (h *transactionHandler) GetUserTransactions(c *gin.Context) {
 	currentUser := c.MustGet("currentUser").(user.User)
 	userID := currentUser.ID
 
@@ -53,12 +53,12 @@ func (h *transactionHandler) GetUserTransactions (c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
-	
+
 	response := helper.APIResponse("Success to get user's transaction", http.StatusOK, "success", transaction.FormatUserTransactions(transactions))
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *transactionHandler) CreateTransaction (c *gin.Context) {
+func (h *transactionHandler) CreateTransaction(c *gin.Context) {
 	var input transaction.CreateTransactionInput
 
 	err := c.ShouldBindJSON(&input)
@@ -77,7 +77,7 @@ func (h *transactionHandler) CreateTransaction (c *gin.Context) {
 	input.User = currentUser
 
 	newTransaction, err := h.service.CreateTransaction(input)
-	
+
 	if err != nil {
 		response := helper.APIResponse("Failed to create transaction: Error to call service CreateTransaction()", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
@@ -93,7 +93,7 @@ func (h *transactionHandler) GetNotification(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		response := helper.APIResponse("Failed to process notification", http.StatusBadRequest, "error", nil)
+		response := helper.APIResponse("Failed to process notification: Failed to bind JSON to input", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 
 		return
@@ -101,7 +101,7 @@ func (h *transactionHandler) GetNotification(c *gin.Context) {
 
 	err = h.service.ProcessPayment(input)
 	if err != nil {
-		response := helper.APIResponse("Failed to process notification", http.StatusBadRequest, "error", nil)
+		response := helper.APIResponse("Failed to process notification: Failed to call service -> ProcessPayment()", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 
 		return

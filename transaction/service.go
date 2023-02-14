@@ -64,12 +64,12 @@ func (s *service) CreateTransaction(input CreateTransactionInput) (Transaction, 
 		return newTransaction, err
 	}
 
-	paymentTransaction := payment.Transaction{
+	paymentTransacation := payment.Transaction{
 		ID:     newTransaction.ID,
 		Amount: newTransaction.Amount,
 	}
 
-	paymentURL, err := s.paymentService.GetPaymentURL(paymentTransaction, input.User)
+	paymentURL, err := s.paymentService.GetPaymentURL(paymentTransacation, input.User)
 	if err != nil {
 		return newTransaction, err
 	}
