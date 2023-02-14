@@ -12,6 +12,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	//"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-contrib/cors"
@@ -22,6 +23,7 @@ import (
 
 func main() {
 	dsn := "freedb_enhaka13:$7X5TXeT5qQ5J#z@tcp(sql.freedb.tech:3306)/freedb_bwastartup?charset=utf8mb4&parseTime=True&loc=Local"
+	//dsn := os.Getenv("U")+":"+os.Getenv("PW")+"@tcp(sql.freedb.tech:3306)/"+os.Getenv("DBN")+"?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())
